@@ -34,7 +34,7 @@ We are using Rails only for the purpose of rendering JSON to clients of this app
 
 - **Create a new model for songs**
 `rails generate model song title:string artist:string year:integer`
--  Create and Migrate your database
+-  **Create and Migrate your database**
     - `rails db:create`
     - `rails db:migrate`
 - **Create seed data**
