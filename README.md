@@ -96,5 +96,9 @@ We are using Rails only for the purpose of rendering JSON to clients of this app
       }
     ]
     ```
+1. Have Fun!
+    - Instead of returning all songs, return a random selection of 12
+
+  
 ## Additional Resources
 - [Scotch.io API with Rails](https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one) (Goes into a lot of depth, especially with testing w/ RSPEC.)
