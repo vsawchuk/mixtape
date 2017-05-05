@@ -1,25 +1,100 @@
-#Build Your Own API - Mixtape
+# Build Your Own API - Mixtape
 
-You will build an API that, when called with the appropriate url, will return a list of songs as JSON.
+You are going to build an API using Rails! When finished, you'll be able to run the server and, instead of going to your browser, you will go to Postman and see some sweet, sweet JSON containing a list of songs! Let's go make a mixtape!
 
 ## Learning Goals
-  - Understand what is different between a rails web project and rails api project
+  - Know how to create a new rails app for an API
   - How to make an API return JSON, instead of rendering html
+  - Using Postman to see the results of all your hard work.
 
-## Baseline
+## Overview
+Here's a short list of what we'll be doing. Below we will go into more detail with each step.
+
 - Create a new rails API project with the following command:
   - `rails new mixtape --api`
-- Create a new migration for songs that has the following attributes:
+- Create a new model for songs that has the following attributes:
   - title
   - artist
   - year
 - Create seed data for songs
-
-
+- Create a GET route to show all songs
+- Create an index method in the controller method to query all songs
+- Render JSON from the controller method
 
 ## What's new?
 
-We are using Rails only for the purpose of rendering JSON to clients of this application, therefore we do not need to handle anything with views. By providing the argument `--rails` when we created our rails app, it did not generate any of the view files. It also has our controller inheriting from an API base instead of ____. This gives us additional, API specific functionality that we will use.
+We are using Rails only for the purpose of rendering JSON to clients of this application, therefore we do not need to handle anything with views. By providing the argument `--rails` when we created our rails app, it will not generate any of the files associated with views.
+
+ It also has our controller inheriting from ActionController::API base instead of ActionController::Base. This gives us additional, API specific functionality that we will use.
 
 
 ## Let's Get Started
+1. The first step of creating our rails app is going to be a _slightly_ different, but is very important! **MAKE SURE YOUR CREATE YOUR NEW RAILS APP WITH '--API'** It is going to save you a lot of time getting started. So, run the following command to generate a new API rails app:
+`rails new . --api`
+
+1. Create a new model for songs
+`rails generate model song title:string artist:string year:integer`
+1.  Create and Migrate your database
+`rails db:create`
+`rails db:migdrate`
+1. Create seed data
+  - add `gem 'faker'` to your Gemfile
+  - run `bundle install`
+  - Add the following code to your `seeds.rb` file
+    - ```Ruby
+    100.times do
+      Song.create(title: Faker::Hipster.sentence(3), artist: Faker::Name.name, year: rand(1950..2017) )
+    end
+    ```
+  - In terminal, run `rails db:seed`
+1. Create a Route for Songs index
+  - ```Ruby
+    get '/songs', to: 'songs#index', as: 'songs'
+  ```
+1. Create a controller method
+  - ```Ruby
+  def index
+    songs = Song.all
+  end
+  ```
+1. Have the controller method render JSON
+    - ```Ruby
+    def index
+      songs = Song.all
+      render :json => songs
+    end
+```
+1. Have the JSON render only specific fields, and return a status code
+    - ```Ruby
+    def index
+      songs = Song.all
+      render :json => songs.as_json(only: [:id, :title, :artist, :year]), status: :ok
+    end
+    ```
+1. Test in Postman!
+  - Go to Postman, and make a get request with this url: `localhost:3000/songs`
+  - You should see something like:
+    - ```JSON
+    [
+      {
+        "id": 1,
+        "title": "Actually pork belly photo booth ethical.",
+        "artist": "Lessie Schmeler DVM",
+        "year": 1988
+      },
+      {
+        "id": 2,
+        "title": "Seitan pinterest chillwave chicharrones gluten-free pug single-origin coffee.",
+        "artist": "Theo Herzog PhD",
+        "year": 1958
+      },
+      {
+        "id": 3,
+        "title": "Sustainable narwhal organic diy chambray schlitz.",
+        "artist": "Justen Jakubowski",
+        "year": 1994
+      }
+    ]
+    ```
+## Additional Resources
+- [Scotch.io API with Rails](https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one) (Goes into a lot of depth, especially with testing w/ RSPEC.)
