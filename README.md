@@ -35,8 +35,8 @@ We are using Rails only for the purpose of rendering JSON to clients of this app
 - **Create a new model for songs**
 `rails generate model song title:string artist:string year:integer`
 -  Create and Migrate your database
-  - `rails db:create`
-  - `rails db:migdrate`
+    - `rails db:create`
+    - `rails db:migrate`
 - **Create seed data**
     - add `gem 'faker'` to your Gemfile
     - run `bundle install`
@@ -74,7 +74,7 @@ We are using Rails only for the purpose of rendering JSON to clients of this app
 - **Test in Postman!**
   - Go to Postman, and make a get request with this url: `localhost:3000/songs`
   - You should see something like:
-  ```JavaScript
+```JavaScript
     [
       {
         "id": 1,
