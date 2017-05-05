@@ -30,48 +30,48 @@ We are using Rails only for the purpose of rendering JSON to clients of this app
 
 ## Let's Get Started
 - The first step of creating our rails app is going to be a _slightly_ different, but is very important! **MAKE SURE YOUR CREATE YOUR NEW RAILS APP WITH '--API'** It is going to save you a lot of time getting started. So, run the following command to generate a new API rails app:
-`rails new . --api`
+  - `rails new . --api`
 
-- Create a new model for songs
+- **Create a new model for songs**
 `rails generate model song title:string artist:string year:integer`
 -  Create and Migrate your database
-`rails db:create`
-`rails db:migdrate`
-- Create seed data
+  - `rails db:create`
+  - `rails db:migdrate`
+- **Create seed data**
     - add `gem 'faker'` to your Gemfile
     - run `bundle install`
     - Add the following code to your `seeds.rb` file
-```Ruby
-100.times do
-  Song.create(title: Faker::Hipster.sentence(3), artist: Faker::Name.name, year: rand(1950..2017) )
-end
- ```
-    - In terminal, run `rails db:seed`
-- Create a Route for Songs index
-```Ruby
-get '/songs', to: 'songs#index', as: 'songs'
-```
-- Create a controller method
-```Ruby
+  ```Ruby
+  100.times do
+    Song.create(title: Faker::Hipster.sentence(3), artist: Faker::Name.name, year: rand(1950..2017) )
+  end
+   ```
+- **In terminal, run `rails db:seed`**
+- **Create a Route for Songs index**
+  ```Ruby
+  get '/songs', to: 'songs#index', as: 'songs'
+  ```
+- **Create a controller method**
+  ```Ruby
+    def index
+      songs = Song.all
+    end
+  ```
+- **Have the controller method render JSON**
+  ```Ruby
   def index
     songs = Song.all
+    render :json => songs
   end
-```
-- Have the controller method render JSON
-```Ruby
-def index
-  songs = Song.all
-  render :json => songs
-end
-```
-- Have the JSON render only specific fields, and return a status code
-```Ruby
-def index
-  songs = Song.all
-  render :json => songs.as_json(only: [:id, :title, :artist, :year]), status: :ok
- end
- ```
-- Test in Postman!
+  ```
+- **Have the JSON render only specific fields, and return a status code**
+  ```Ruby
+  def index
+    songs = Song.all
+    render :json => songs.as_json(only: [:id, :title, :artist, :year]), status: :ok
+   end
+   ```
+- **Test in Postman!**
   - Go to Postman, and make a get request with this url: `localhost:3000/songs`
   - You should see something like:
   ```JavaScript
@@ -96,7 +96,7 @@ def index
       }
     ]
 ```
-- Have Fun!
+- **Have Fun!**
     - Instead of returning all songs, return a random selection of 12
 
 
