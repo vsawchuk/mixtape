@@ -41,40 +41,40 @@ We are using Rails only for the purpose of rendering JSON to clients of this app
   - add `gem 'faker'` to your Gemfile
   - run `bundle install`
   - Add the following code to your `seeds.rb` file
-    - ```Ruby
-    100.times do
-      Song.create(title: Faker::Hipster.sentence(3), artist: Faker::Name.name, year: rand(1950..2017) )
-    end
-    ```
+```Ruby
+100.times do
+  Song.create(title: Faker::Hipster.sentence(3), artist: Faker::Name.name, year: rand(1950..2017) )
+end
+ ```
   - In terminal, run `rails db:seed`
 1. Create a Route for Songs index
-  - ```Ruby
-    get '/songs', to: 'songs#index', as: 'songs'
-  ```
+```Ruby
+get '/songs', to: 'songs#index', as: 'songs'
+```
 1. Create a controller method
-  - ```Ruby
+```Ruby
   def index
     songs = Song.all
   end
-  ```
+```
 1. Have the controller method render JSON
-    - ```Ruby
-    def index
-      songs = Song.all
-      render :json => songs
-    end
+```Ruby
+def index
+  songs = Song.all
+  render :json => songs
+end
 ```
 1. Have the JSON render only specific fields, and return a status code
-    - ```Ruby
-    def index
-      songs = Song.all
-      render :json => songs.as_json(only: [:id, :title, :artist, :year]), status: :ok
-    end
-    ```
+```Ruby
+def index
+  songs = Song.all
+  render :json => songs.as_json(only: [:id, :title, :artist, :year]), status: :ok
+ end
+ ```
 1. Test in Postman!
   - Go to Postman, and make a get request with this url: `localhost:3000/songs`
   - You should see something like:
-    - ```JSON
+  ```JavaScript
     [
       {
         "id": 1,
@@ -95,7 +95,7 @@ We are using Rails only for the purpose of rendering JSON to clients of this app
         "year": 1994
       }
     ]
-    ```
+```
 1. Have Fun!
     - Instead of returning all songs, return a random selection of 12
 
