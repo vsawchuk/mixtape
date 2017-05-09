@@ -102,7 +102,7 @@ It also has our controller inheriting from ActionController::API base instead of
 
 
 ## Additional Resources
-Most resourses and tutorials will go into more depth and may have different setups of their projects from ours. They may include serializing data, adding versioning to their API's or testing with RSPEC. While it is good to have exposure to all those things, you do not need to use them with our API projects (We will still test with Minitest though!).
+Most resourses and tutorials will go into more depth and may have different setups of their projects from ours. They may include serializing data, adding versioning to their API's or testing with RSPEC. While it is good to have exposure to all those things, you do not need to use them with our API projects (We will still test with Minitest though!). 
 - [Rails API Documentation](http://edgeguides.rubyonrails.org/api_app.html)
 - [Scotch.io API with Rails](https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one) (Goes into a lot of depth, especially with testing w/ RSPEC.)
 - [Building a Simple Rails API Blog Post ](http://www.thegreatcodeadventure.com/building-a-super-simple-rails-api-json-api-edition-2/)
